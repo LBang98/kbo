@@ -37,7 +37,7 @@ public class SignupController {
             session.setAttribute("loginid", userid);
 
             // 리다이렉트
-            return "redirect:/frame";
+            return "redirect:/hitter";
         } else {
             // 아이디와 비번이 틀린 경우
             model.addAttribute("errorMessage", "아이디 또는 비밀번호가 맞지 않습니다.");
