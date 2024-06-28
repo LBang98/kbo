@@ -1,0 +1,45 @@
+#port setting
+Server:
+  port: 8000
+
+
+spring:
+  jpa:
+    open-in-view=false:
+
+#jsp setting
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+
+  #mysql setting
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/bit701?serverTimezone=Asia/Seoul
+#    username: root
+#    password: 1234
+
+#gangsa mysql db
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://db-n9jgc-kr.vpc-pub-cdb.ntruss.com:3306/studydb?serverTimezone=Asia/Seoul
+    username: study
+    password: bitcamp!@#123
+
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+
+
+
+#Mybatis setting
+#mybatis:
+#  type-aliases-package: data.dto
+#  mapper-locations: /mapper/**/*.xml
+
+
