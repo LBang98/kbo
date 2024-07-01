@@ -9,14 +9,31 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PitcherService {
 
+    private static final Map<String, String> TEAM_MAP = new HashMap<>();
+
+    static {
+        TEAM_MAP.put("2002", "KIA");
+        TEAM_MAP.put("1001", "삼성");
+        TEAM_MAP.put("3001", "롯데");
+        TEAM_MAP.put("6002", "두산");
+        TEAM_MAP.put("11001", "NC");
+        TEAM_MAP.put("7002", "한화");
+        TEAM_MAP.put("9002", "SSG");
+        TEAM_MAP.put("12001", "KT");
+        TEAM_MAP.put("5002", "LG");
+        TEAM_MAP.put("10001", "키움");
+    }
+
     public List<PitcherModel> PitcherData() {
         String url = "https://statiz.sporki.com/stats/?m=main&m2=pitching";
-        List<PitcherModel> Pitcherplayers = new ArrayList<>();
+        List<PitcherModel> pitcherPlayers = new ArrayList<>();
 
         try {
             Document document = Jsoup.connect(url).get();
@@ -26,45 +43,60 @@ public class PitcherService {
             for (Element row : rows) {
                 Elements columns = row.select("td");
                 if (columns.size() > 0) {
-                    PitcherModel Pitcherplayer = new PitcherModel();
+                    PitcherModel pitcherPlayer = new PitcherModel();
 
-                    Pitcherplayer.setRank(columns.get(0).text());
-                    Pitcherplayer.setName(columns.get(1).text());
-                    Pitcherplayer.setTeam(columns.get(2).text());
-                    Pitcherplayer.setG(columns.get(3).text());
-                    Pitcherplayer.setWar(columns.get(4).text());
-                    Pitcherplayer.setGs(columns.get(5).text());
-                    Pitcherplayer.setGr(columns.get(6).text());
-                    Pitcherplayer.setGf(columns.get(7).text());
-                    Pitcherplayer.setCg(columns.get(8).text());
-                    Pitcherplayer.setSho(columns.get(9).text());
-                    Pitcherplayer.setW(columns.get(10).text());
-                    Pitcherplayer.setL(columns.get(11).text());
-                    Pitcherplayer.setSv(columns.get(12).text());
-                    Pitcherplayer.setHd(columns.get(13).text());
-                    Pitcherplayer.setIp(columns.get(14).text());
-                    Pitcherplayer.setEr(columns.get(15).text());
-                    Pitcherplayer.setR(columns.get(16).text());
-                    Pitcherplayer.setRra(columns.get(17).text());
-                    Pitcherplayer.setTbf(columns.get(18).text());
-                    Pitcherplayer.setH(columns.get(19).text());
-                    Pitcherplayer.setHr(columns.get(20).text());
-                    Pitcherplayer.setBb(columns.get(21).text());
-                    Pitcherplayer.setSo(columns.get(22).text());
-                    Pitcherplayer.setRoe(columns.get(23).text());
-                    Pitcherplayer.setBk(columns.get(24).text());
-                    Pitcherplayer.setWp(columns.get(25).text());
-                    Pitcherplayer.setEra(columns.get(26).text());
+                    pitcherPlayer.setRank(columns.get(0).text());
+                    pitcherPlayer.setName(columns.get(1).text());
 
-                    Pitcherplayers.add(Pitcherplayer);
+                    // 팀 정보 추출 및 변환
+                    String teamHtml = columns.get(2).html();
+                    Document teamDoc = Jsoup.parse(teamHtml);
+                    Elements imgElements = teamDoc.select("img");
+                    String teamSrc = imgElements.attr("src");
+
+                    // 팀 코드 변환
+                    String teamCode = teamSrc.split("/")[5].split("\\.")[0];
+                    String teamName = getTeamName(teamCode);
+
+                    pitcherPlayer.setTeam(teamName);
+
+                    pitcherPlayer.setG(columns.get(3).text());
+                    pitcherPlayer.setWar(columns.get(4).text());
+                    pitcherPlayer.setGs(columns.get(5).text());
+                    pitcherPlayer.setGr(columns.get(6).text());
+                    pitcherPlayer.setGf(columns.get(7).text());
+                    pitcherPlayer.setCg(columns.get(8).text());
+                    pitcherPlayer.setSho(columns.get(9).text());
+                    pitcherPlayer.setW(columns.get(10).text());
+                    pitcherPlayer.setL(columns.get(11).text());
+                    pitcherPlayer.setSv(columns.get(12).text());
+                    pitcherPlayer.setHd(columns.get(13).text());
+                    pitcherPlayer.setIp(columns.get(14).text());
+                    pitcherPlayer.setEr(columns.get(15).text());
+                    pitcherPlayer.setR(columns.get(16).text());
+                    pitcherPlayer.setRra(columns.get(17).text());
+                    pitcherPlayer.setTbf(columns.get(18).text());
+                    pitcherPlayer.setH(columns.get(19).text());
+                    pitcherPlayer.setHr(columns.get(20).text());
+                    pitcherPlayer.setBb(columns.get(21).text());
+                    pitcherPlayer.setSo(columns.get(22).text());
+                    pitcherPlayer.setRoe(columns.get(23).text());
+                    pitcherPlayer.setBk(columns.get(24).text());
+                    pitcherPlayer.setWp(columns.get(25).text());
+                    pitcherPlayer.setEra(columns.get(26).text());
+
+                    pitcherPlayers.add(pitcherPlayer);
                 }
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Failed to connect to the URL: " + url);
         }
 
-        return Pitcherplayers;
+        return pitcherPlayers;
+    }
+
+    private String getTeamName(String teamCode) {
+        return TEAM_MAP.getOrDefault(teamCode, "Unknown");
     }
 }

@@ -9,10 +9,27 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class HitterService {
+
+    private static final Map<String, String> TEAM_MAP = new HashMap<>();
+
+    static {
+        TEAM_MAP.put("2002", "KIA");
+        TEAM_MAP.put("1001", "삼성");
+        TEAM_MAP.put("3001", "롯데");
+        TEAM_MAP.put("6002", "두산");
+        TEAM_MAP.put("11001", "NC");
+        TEAM_MAP.put("7002", "한화");
+        TEAM_MAP.put("9002", "SSG");
+        TEAM_MAP.put("12001", "KT");
+        TEAM_MAP.put("5002", "LG");
+        TEAM_MAP.put("10001", "키움");
+    }
 
     public List<HitterModel> HitterData() {
         String url = "https://statiz.sporki.com/stats/?m=main&m2=batting";
@@ -29,7 +46,19 @@ public class HitterService {
                     HitterModel batter = new HitterModel();
                     batter.setRank(columns.get(0).text());
                     batter.setName(columns.get(1).text());
-                    batter.setTeam(columns.get(2).text());
+
+                    // 팀 정보 추출 및 변환
+                    String teamHtml = columns.get(2).html();
+                    Document teamDoc = Jsoup.parse(teamHtml);
+                    Elements imgElements = teamDoc.select("img");
+                    String teamSrc = imgElements.attr("src");
+
+                    // 팀 코드 변환
+                    String teamCode = teamSrc.split("/")[5].split("\\.")[0];
+                    String teamName = getTeamName(teamCode);
+
+                    batter.setTeam(teamName);
+
                     batter.setWar(columns.get(3).text());
                     batter.setOwar(columns.get(4).text());
                     batter.setDwar(columns.get(5).text());
@@ -65,9 +94,11 @@ public class HitterService {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Failed to connect to the URL: " + url);
         }
-
         return hitters;
+    }
+
+    private String getTeamName(String teamCode) {
+        return TEAM_MAP.getOrDefault(teamCode, "Unknown");
     }
 }
