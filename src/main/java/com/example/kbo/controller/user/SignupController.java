@@ -23,18 +23,18 @@ public class SignupController {
 
     @PostMapping("/user/login")
     public String isLogin(
-            @RequestParam String userid,
+            @RequestParam String email,
             @RequestParam String userpw,
             HttpSession session,
             Model model
     ) {
         // 로그인 상태 확인
-        boolean loginStatus = userService.isLoginCheck(userid, userpw);
+        boolean loginStatus = userService.isLoginCheck(email, userpw);
         if (loginStatus) {
             // 아이디와 비번이 맞은 경우
             // 로그인 성공시 세션에 저장
             session.setAttribute("loginok", "yes");
-            session.setAttribute("loginid", userid);
+            session.setAttribute("loginid", email);
 
             // 리다이렉트
             return "redirect:/hitter";
