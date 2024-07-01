@@ -64,7 +64,7 @@
 
         .input {
             padding: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -124,13 +124,20 @@
             <p style="color: #555;">Enter your ID and PW to access your account.</p>
             <form action="/user/login" method="post">
                 <div class="card-content">
-                    <label for="userid" class="label">ID</label>
-                    <input type="text" id="userid" name="userid" placeholder="아이디를 입력하세요" required class="input">
+                    <label for="email" class="label">Email</label>
+                    <input type="text" id="email" name="email" placeholder="이메일을 입력하세요" required class="input">
                 </div>
                 <div class="card-content">
                     <label for="userpw" class="label">Password</label>
                     <input type="password" id="userpw" name="userpw" placeholder="비밀번호를 입력하세요" required class="input">
                 </div>
+            <div class="card-content">
+                <input type="checkbox">Remember me
+                <a href="" class="link sign-up" style="float: right;">Forgot Password?</a>
+            </div>
+            <div class="card-content">
+                <p>Don't have an account?<a href="/user/form" class="link sign-up" style="margin-left: 10px;">Sign Up</a></p>
+            </div>
                 <div class="card-content">
                     <button type="submit" class="button">Sign In</button>
                 </div>
@@ -140,9 +147,6 @@
                     </c:if>-->
                 </div>
             </form>
-            <div class="card-content">
-                <p>Don't have an account?<a href="/user/form" class="link sign-up" style="margin-left: 10px;">Sign Up</a></p>
-            </div>
         </div>
     </div>
 </div>
