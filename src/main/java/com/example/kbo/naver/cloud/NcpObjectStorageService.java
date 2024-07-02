@@ -1,4 +1,4 @@
-package com.example.kbo.cloud;
+package com.example.kbo.naver.cloud;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;

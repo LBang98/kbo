@@ -1,4 +1,4 @@
-package com.example.kbo.cloud;
+package com.example.kbo.naver.cloud;
 
 import lombok.Getter;
 import lombok.Setter;

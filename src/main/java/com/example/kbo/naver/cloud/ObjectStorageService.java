@@ -1,4 +1,4 @@
-package com.example.kbo.cloud;
+package com.example.kbo.naver.cloud;
 
 import org.springframework.web.multipart.MultipartFile;
 

@@ -3,7 +3,7 @@ package com.example.kbo.controller.user;
 import com.example.kbo.data.dto.UserDto;
 import com.example.kbo.data.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
-import com.example.kbo.cloud.NcpObjectStorageService;
+import com.example.kbo.naver.cloud.NcpObjectStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
