@@ -29,8 +29,12 @@ public class PitcherModel {
     private String rra;
     private String tbf;
     private String h;
+    private String b2;
+    private String b3;
     private String hr;
     private String bb;
+    private String hp;
+    private String ib;
     private String so;
     private String roe;
     private String bk;

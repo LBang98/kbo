@@ -1,15 +1,14 @@
-package com.example.kbo.controller;
+package com.example.kbo.controller.player;
 
 import com.example.kbo.data.model.PitcherModel;
 import com.example.kbo.data.service.PitcherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class PitcherController {
 
 
@@ -17,10 +16,11 @@ public class PitcherController {
     private PitcherService pitcherService;
 
     @GetMapping("/pitcher")
-    public String getPlayers(Model model) {
-        List<PitcherModel> Pitcherplayers = pitcherService.PitcherData();
-        model.addAttribute("Pitcherplayers", Pitcherplayers);
+    public List<PitcherModel> getPitcherData() {
 
-        return "player/pitcher";
+        return pitcherService.PitcherData();
     }
+
+
+
 }

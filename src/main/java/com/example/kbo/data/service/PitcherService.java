@@ -60,8 +60,8 @@ public class PitcherService {
 
                     pitcherPlayer.setTeam(teamName);
 
-                    pitcherPlayer.setG(columns.get(3).text());
-                    pitcherPlayer.setWar(columns.get(4).text());
+                    pitcherPlayer.setWar(columns.get(3).text());
+                    pitcherPlayer.setG(columns.get(4).text());
                     pitcherPlayer.setGs(columns.get(5).text());
                     pitcherPlayer.setGr(columns.get(6).text());
                     pitcherPlayer.setGf(columns.get(7).text());
@@ -77,13 +77,17 @@ public class PitcherService {
                     pitcherPlayer.setRra(columns.get(17).text());
                     pitcherPlayer.setTbf(columns.get(18).text());
                     pitcherPlayer.setH(columns.get(19).text());
-                    pitcherPlayer.setHr(columns.get(20).text());
-                    pitcherPlayer.setBb(columns.get(21).text());
-                    pitcherPlayer.setSo(columns.get(22).text());
-                    pitcherPlayer.setRoe(columns.get(23).text());
-                    pitcherPlayer.setBk(columns.get(24).text());
-                    pitcherPlayer.setWp(columns.get(25).text());
-                    pitcherPlayer.setEra(columns.get(26).text());
+                    pitcherPlayer.setB2(columns.get(20).text());
+                    pitcherPlayer.setB3(columns.get(21).text());
+                    pitcherPlayer.setHr(columns.get(22).text());
+                    pitcherPlayer.setBb(columns.get(23).text());
+                    pitcherPlayer.setHp(columns.get(24).text());
+                    pitcherPlayer.setIb(columns.get(25).text());
+                    pitcherPlayer.setSo(columns.get(26).text());
+                    pitcherPlayer.setRoe(columns.get(27).text());
+                    pitcherPlayer.setBk(columns.get(28).text());
+                    pitcherPlayer.setWp(columns.get(29).text());
+                    pitcherPlayer.setEra(columns.get(30).text());
 
                     pitcherPlayers.add(pitcherPlayer);
                 }
@@ -92,7 +96,6 @@ public class PitcherService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return pitcherPlayers;
     }
 
